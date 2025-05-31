@@ -1,0 +1,258 @@
+/* Sidebar container */
+.sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 60px;
+        background-color: #111;
+        color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 0.5rem;
+        box-sizing: border-box;
+        transition: width 0.3s ease-in-out;
+        overflow-x: hidden;
+        z-index: 9999;
+}
+
+.sidebar-container:hover {
+    width: 200px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: visible;
+}
+
+/* Nav links container */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+        flex-grow: 1;
+        padding-right: 0.5rem;
+}
+
+/* Scrollbar styling for nav links */
+.nav-links::-webkit-scrollbar {
+    width: 6px;
+}
+
+.nav-links::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 3px;
+}
+
+/* Nav link */
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+        padding: 0.5rem 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease-in-out, transform 0.3s ease;
+        white-space: nowrap;
+}
+
+.nav-link:hover {
+    background-color: #333;
+    transform: translateX(8px);
+}
+
+/* Icon style */
+.nav-icon {
+    min-width: 26px;
+        margin-right: 1rem;
+        flex-shrink: 0;
+}
+
+/* Nav item names are hidden by default */
+.nav-item-name {
+    display: none;
+    opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+}
+
+/* Show nav item names when sidebar hovered */
+.sidebar-container:hover .nav-item-name {
+    display: inline;
+    opacity: 1;
+}
+
+/* USER AREA - fixed at bottom */
+.user-area {
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+/* USERNAME BUTTON */
+.username-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+        width: 100%;
+        background-color: #222;
+        border: none;
+        color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.username-button:hover {
+    background-color: #444;
+}
+
+.username-button span {
+    display: none;
+}
+
+/* Show username text on sidebar hover */
+.sidebar-container:hover .username-button span {
+    display: inline;
+}
+
+/* Dropdown arrow rotation */
+.dropdown-arrow {
+    transition: transform 0.2s ease-in-out;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    stroke: white;
+}
+
+.dropdown-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+/* DROPDOWN MENU */
+.dropdown-menu-above {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    color: #222;
+        border-radius: 6px 6px 0 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        margin-bottom: 0.4rem;
+        padding: 0.25rem 0;
+    list-style: none;
+    max-height: 250px;
+        overflow-y: auto;
+        z-index: 10000;
+}
+
+/* Dropdown scrollbar */
+.dropdown-menu-above::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu-above::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+
+/* Dropdown item */
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: block;
+    color: #222;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background-color: #eee;
+}
+
+/* Button inside dropdown */
+button.dropdown-item {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+}
+
+/* Auth links */
+.auth-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.auth-links li {
+    margin-top: 1rem;
+}
+/* Responsive - Small screens */
+@media (max-width: 768px) {
+    .sidebar-container {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        padding: 0 1rem;
+        justify-content: space-between;
+        align-items: center;
+        bottom: 0;
+        top: auto;
+        border-top: 1px solid #222;
+    }
+
+    .sidebar-container:hover {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        gap: 1.5rem;
+        overflow-x: auto;
+        flex-grow: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-link {
+        padding: 0.5rem;
+    }
+
+    .nav-icon {
+        margin-right: 0;
+    }
+
+    .nav-item-name {
+        display: none !important;
+    }
+
+    .user-area {
+        position: relative;
+        padding: 0;
+    }
+
+    .username-button {
+        padding: 0.5rem 0.75rem;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .dropdown-menu-above {
+        top: auto;
+        bottom: 100%;
+        left: auto;
+        right: 0;
+        width: 180px;
+        border-radius: 6px 6px 0 0;
+    }
+}
