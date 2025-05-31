@@ -6,7 +6,7 @@ import {
     useGetUsersQuery,
     useDeleteUserMutation,
     useUpdateUserMutation,
-} from "../../redux/api/UserApiSlice";
+} from '../../redux/api/UserApiSlice'
 import Message from "../../component/Message";
 
 const UserList = () => {
