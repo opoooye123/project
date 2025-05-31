@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Navigation from './pages/Auth/Navigation';
-import "./index.css";
+import './index.css'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 function App() {

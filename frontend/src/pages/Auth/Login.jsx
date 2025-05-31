@@ -1,76 +1,126 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLoginMutation } from "../../redux/api/UserApiSlice";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../../component/Loader";
+
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const [login, { isLoading }] = useLoginMutation()
+    const [login, { isLoading }] = useLoginMutation();
 
-    const { userInfo } = useSelector(state => state.auth)
+    const { userInfo } = useSelector((state) => state.auth);
 
-    const { search } = useLocation()
-    const sp = new URLSearchParams(search)
-    const redirect = sp.get('redirect') || '/'
+    const { search } = useLocation();
+    const sp = new URLSearchParams(search);
+    const redirect = sp.get("redirect") || "/";
 
     useEffect(() => {
         if (userInfo) {
-            navigate(redirect)
-        }
-    }, [navigate, redirect, userInfo])
+        navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
     const submitHandler = async (e) => {
-        e.preventDefault()
+      e.preventDefault();
 
-        try {
-            const res = await login({ email, password }).unwrap();
-            console.log(res);
-            dispatch(setCredentials({ ...res }));
-        } catch (error) {
-            toast.error(error?.data?.message || error.message);
-        }
+      try {
+          const res = await login({ email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate(redirect);
+    } catch (error) {
+        toast.error(error?.data?.message || error.message || "Failed to sign in");
     }
+    };
+
     return (
-        <div>
-            <section className="pl-[10rem] flex flex-wrap">
-                <div className="mr-[4rem] mt-[5rem]">
-                    <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+      <section className="flex items-start justify-center min-h-screen p-10 gap-10 bg-gray-900">
+          {/* Form container */}
+          <div className="w-full max-w-md">
+              <h1 className="text-2xl font-semibold mb-4 text-white">Sign In</h1>
 
-                    <form onSubmit={submitHandler} className="container w-[40rem]">
-                        <div className="my-[2rem]">
-                            <label htmlFor="email" className="block text-sm font-medium text-white">Email Address</label>
-                            <input type="email" id="email" className="mt-1 p-2 border rounded w-full" value={email} onChange={e => setEmail(e.target.value)} />
-                        </div>
+              <form
+                  onSubmit={submitHandler}
+                  className="space-y-6 bg-gray-800 p-6 rounded-lg shadow-lg"
+              >
+                  {/* Email */}
+                  <div>
+                      <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-white mb-1"
+                      >
+                          Email Address
+                      </label>
+                      <input
+                          type="email"
+                          id="email"
+                          placeholder="Email address"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full p-2 rounded border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-pink-500"
+                          required
+                      />
+                  </div>
 
-                        <div className="my-[2rem]">
-                            <label htmlFor="password" className="block text-sm font-medium text-white">Password</label>
-                            <input type="password" id="password" className="mt-1 p-2 border rounded w-full" value={password} onChange={e => setPassword(e.target.value)} />
-                        </div>
+                  {/* Password */}
+                  <div>
+                      <label
+                          htmlFor="password"
+                          className="block text-sm font-medium text-white mb-1"
+                      >
+                          Password
+                      </label>
+                      <input
+                          type="password"
+                          id="password"
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="w-full p-2 rounded border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-pink-500"
+                          required
+                      />
+                  </div>
 
-                        <button disabled={isLoading} type="submit" className="bg-pink-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]">{isLoading ? "signing in...." : "Sign in"}</button>
+                  <button
+                      disabled={isLoading}
+                      type="submit"
+                      className="w-full bg-pink-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-pink-600 disabled:opacity-50"
+                  >
+                      {isLoading ? "Signing in..." : "Sign in"}
+                  </button>
 
-                        {isLoading && <Loader />}
-                    </form>
-                    <div className="mt-4">
-                        <p className="text-black">
-                            New Customer? {" "}
-                            <Link to={redirect ? `/register?redirect=${redirect}` : 'register'} className="text-pink-500 hover:underline">Register</Link>
-                        </p>
-                    </div>
-                </div>
-                <img src="" alt=""
-                    className="h-[65rem] w-[59%] xl:block md:hidden sm:hidden roundes-lg"
-                />
-            </section>
-        </div>
-    )
-}
+                  {isLoading && <Loader />}
+              </form>
 
-export default Login
+              <div className="mt-4 text-white">
+                  <p>
+                      New Customer?{" "}
+                      <Link
+                          to={redirect ? `/register?redirect=${redirect}` : "/register"}
+                          className="text-pink-500 hover:underline"
+                      >
+                          Register
+                      </Link>
+                  </p>
+              </div>
+          </div>
+
+          {/* Image container */}
+          <div className="hidden md:block md:w-1/2">
+              <img
+                  src="https://img.freepik.com/premium-vector/letter-d-with-red-heart-monogram-d-heart-icon_302321-2755.jpg?semt=ais_hybrid&w=740"
+                  alt="Heart Monogram"
+                  className="rounded-lg object-contain max-h-[500px] w-full"
+              />
+          </div>
+      </section>
+    );
+};
+
+export default Login;
