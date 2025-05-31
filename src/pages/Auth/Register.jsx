@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../component/Loader";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
-import { useRegisterMutation } from "../../redux/api/UserApiSlice";
+import { useRegisterMutation } from "../../redux/api/userApiSlice";
 
 const Register = () => {
     const [username, setUsername] = useState("");

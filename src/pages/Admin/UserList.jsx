@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import Loader from "../../component/Loader";
 import { toast } from "react-toastify";
+
 import {
     useGetUsersQuery,
     useDeleteUserMutation,
     useUpdateUserMutation,
-} from '../../redux/api/UserApiSlice'
+} from '../../redux/api/userApiSlice'
+
 import Message from "../../component/Message";
 
 const UserList = () => {
